@@ -1,43 +1,61 @@
 let numVal; let totalVal; let operatorVal;
 let buttons = document.querySelectorAll('.btn');
 let display = document.querySelector('.display');
-buttons.forEach(btn => btn.addEventListener('click',buttonClick));
+buttons.forEach(btn => btn.addEventListener('click',clickButton));
 
+//Adding Key Press
+document.addEventListener("keypress",typeButton);
+const numArr = ['1','2','3','4','5','6','7','8','9','0'];
 
-function buttonClick(event){
-    let btn = event.target;
-    console.log(btn.id)
-    //Number Selection
+function typeButton(event){
+    //Just doing numbers for proof of concept. Need smart way to define operators, possibly just remap keypresses, or likely just rename id's to match keypress ids.
+    let key = event.key;
+    if(numArr.includes(key)){
+        NumButton(key);
+    }
+}
+
+function clickButton(event){
+    const btn = event.target
     if (btn.classList.contains('num')){
-        if (numVal){
-            numVal = Number(String(numVal) + String(btn.id));
-        }
-        else{
-            numVal = Number(btn.id);
-        }
-        display.textContent = numVal;
+        const value = btn.textContent;
+        NumButton(value);
     }
+    else if(btn.classList.contains('op')){
+        const value = btn.id;
+        opButton(value);
+    }
+    else if(btn.id === 'AC'){
+        acButton();
+    }
+}
 
-    //Operator Selection
-    if(btn.classList.contains('op')){
-        if (operatorVal){
-            totalVal = calc(totalVal, numVal, operatorVal);
-        }else{
-            totalVal = numVal;
-        }
-        display.textContent = totalVal;
-        numVal = null;
-        operatorVal = btn.id;
+function NumButton(num){
+    if (numVal){
+        numVal = Number(String(numVal) + String(num));
     }
+    else{
+        numVal = Number(num);
+    }
+    display.textContent = numVal;
+}
 
-    //AC Selection
-    if (btn.id == 'AC'){
-        numVal = null;
-        totalVal = null;
-        operatorVal = null;
-        display.textContent = '------'
+function opButton(operator){
+    if (operatorVal){
+        totalVal = calc(totalVal, numVal, operatorVal);
+    }else{
+        totalVal = numVal;
     }
-    
+    display.textContent = totalVal;
+    numVal = null;
+    operatorVal = operator;
+}
+
+function acButton(){
+    numVal = null;
+    totalVal = null;
+    operatorVal = null;
+    display.textContent = '------'
 }
 
 function calc(total, number, operator){
