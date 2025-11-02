@@ -6,12 +6,26 @@ buttons.forEach(btn => btn.addEventListener('click',clickButton));
 //Adding Key Press
 document.addEventListener("keypress",typeButton);
 const numArr = ['1','2','3','4','5','6','7','8','9','0'];
+const opArr = []; 
+opArr.push({key:'+', op:'addi'});
+opArr.push({key:'-', op:'subi'});
+opArr.push({key:'/', op:'divi'});
+opArr.push({key:'*', op:'mult'});
+opArr.push({key:'Enter', op:'equals'});
+const acArr = ['Delete','Backspace'];
 
 function typeButton(event){
     //Just doing numbers for proof of concept. Need smart way to define operators, possibly just remap keypresses, or likely just rename id's to match keypress ids.
-    let key = event.key;
+    const key = event.key;
+    const opItem = opArr.filter((x) => x.key == key)[0];
     if(numArr.includes(key)){
-        NumButton(key);
+        numButton(key);
+    }
+    else if(opItem){
+        opButton(opItem.op);
+    }
+    else if(acArr.includes(key)){
+        acButton();
     }
 }
 
@@ -19,7 +33,7 @@ function clickButton(event){
     const btn = event.target
     if (btn.classList.contains('num')){
         const value = btn.textContent;
-        NumButton(value);
+        numButton(value);
     }
     else if(btn.classList.contains('op')){
         const value = btn.id;
@@ -30,7 +44,7 @@ function clickButton(event){
     }
 }
 
-function NumButton(num){
+function numButton(num){
     if (numVal){
         numVal = Number(String(numVal) + String(num));
     }
