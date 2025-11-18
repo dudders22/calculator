@@ -55,14 +55,24 @@ function numButton(num){
 }
 
 function opButton(operator){
-    if (operatorVal){
-        totalVal = calc(totalVal, numVal, operatorVal);
-    }else{
-        totalVal = numVal;
+    //If numVal empty then just change the operator and nothing else. 
+    if (numVal){
+        if (operatorVal){
+            totalVal = calc(totalVal, numVal, operatorVal);
+        }
+        else{
+            totalVal = numVal;
+        }
+        display.textContent = totalVal;
+        numVal = null;
     }
-    display.textContent = totalVal;
-    numVal = null;
-    operatorVal = operator;
+    if (!(operator == 'equals')){
+        operatorVal = operator;
+    }
+    else{
+        operatorVal = null;
+    }
+    
 }
 
 function acButton(){
