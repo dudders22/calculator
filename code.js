@@ -1,4 +1,4 @@
-let numVal; let totalVal; let operatorVal
+let numVal; let totalVal = 0; let operatorVal
 let buttons = document.querySelectorAll('.btn');
 let display = document.querySelector('.display');
 buttons.forEach(btn => btn.addEventListener('click',clickButton));
@@ -74,6 +74,7 @@ buttons.forEach(btn => btn.addEventListener('click',clickButton));
             display.textContent = totalVal;
             numVal = null;
         }
+        
         if (totalVal == 'ERR'){
             totalVal = null
             operatorVal = null

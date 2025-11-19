@@ -1,0 +1,28 @@
+--Explanation of logic--.
+For if I revisit this later on to polish it up! There are 3 global variables:
+
+totalVal: 
+Stores the running Total. 
+Is reset if either AC is pressed, or a number is pressed without an operator
+
+numberVal:
+Stores the current number. This is reset when equals, AC, or any operator is pressed.
+This flicks between being a string and a number to enable us to build it up.
+
+operatorVal:
+Stores the currently active operator. If null then there's no operator active.
+
+1- If a number key is pressed:
+    a- If numberVal already exists it will add a digit onto the end.
+    b- If it doesn't it will start a new numberVal.
+
+2- If an operator key is pressed (+-/*=):
+    a- If there's a numberVal then:
+        i- If there's no operator active, set totalVal to numberVal and clear numberVal.
+        ii- if there is an operator active, set totalVal to the calculation, and clear numberVal.
+    b- Sets the operatorVal active to +-/or* (not for equals)
+
+3- If AC is pressed, or if we divide by zero then everything is reset.
+
+There may be ways to break this that I've not thought of, but the code is quite easy to follow
+compared to my previous monstrosities, and looks quite nice so I'm fairly happy with it!
