@@ -64,7 +64,7 @@ buttons.forEach(btn => btn.addEventListener('click',clickButton));
 
     function opButton(operator){
         //If numVal empty then just change the operator and nothing else. 
-        if (numVal){
+        if (numVal != null){
             if (operatorVal){
                 totalVal = calc(totalVal, Number(numVal), operatorVal);
             }
@@ -74,7 +74,11 @@ buttons.forEach(btn => btn.addEventListener('click',clickButton));
             display.textContent = totalVal;
             numVal = null;
         }
-        if (!(operator == 'equals')){
+        if (totalVal == 'ERR'){
+            totalVal = null
+            operatorVal = null
+        }
+        else if (!(operator == 'equals')){
             operatorVal = operator;
         }
         else{
@@ -103,6 +107,8 @@ buttons.forEach(btn => btn.addEventListener('click',clickButton));
     }
 
     function calc(total, number, operator){
+        console.log(number)
+        console.log(operator)
         switch(operator){
             case 'addi':
                 return total + number;
@@ -111,7 +117,12 @@ buttons.forEach(btn => btn.addEventListener('click',clickButton));
             case 'mult':
                 return total * number;
             case 'divi':
-                return total / number;
+                if (number == 0){
+                    return 'ERR'
+                }
+                else{
+                    return total / number;
+                }
             case '=':
                 return total
         }
